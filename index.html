@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Login Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            height: auto;
+            width: 750px;
+            max-width: 750px;
+            border-radius: 20px;
+            margin-top: 60px;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(74, 115, 243, 0.2);
+        }
+
+        .box1 {
+            width: 50%;
+        }
+
+        .box1 img {
+            width: 100%;
+            border-radius: 20px;
+            transition: 0.4s ease;
+        }
+
+        .box2 {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #3554d3;
+            font-weight: 600;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: 500;
+            color: #23337a;
+        }
+
+        input {
+            height: 40px;
+            width: 320px;
+            border-radius: 8px;
+            padding: 10px;
+            border: 1.5px solid #bfc6ff;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4A73F3;
+            box-shadow: 0 0 8px rgba(74, 115, 243, 0.5);
+        }
+
+        /* PASSWORD WRAPPER */
+        .password-wrapper {
+            position: relative;
+            width: 330px;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+        }
+
+        .password-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #4A73F3;
+            font-size: 16px;
+        }
+
+        button {
+            height: 50px;
+            width: 330px;
+            border-radius: 10px;
+            margin-top: 10px;
+            background: #4A73F3;
+            color: white;
+            border: none;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #375ad8;
+        }
+
+        a {
+            color: #4A73F3;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        p {
+            font-size: 13px;
+            color: #555;
+        }
+
+
+        .formBox {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* DEFAULT FORM */
+        #loginForm {
+            display: flex;
+        }
+
+        /* BOTTOM SWITCH TEXT */
+        .bottom-switch {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            color: #444;
+        }
+
+        .bottom-switch a {
+            color: #3554d3;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                width: 92%;
+                margin-top: 120px;
+                padding: 20px;
+                border-radius: 15px;
+                gap: 15px;
+            }
+
+            .box1 img {
+                display: none;
+            }
+
+            .box2 {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+            }
+
+            input,
+            .password-wrapper {
+                max-width: 300px;
+            }
+
+            button {
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="box1">
+            <!-- ONLY ONE IMAGE HERE -->
+            <img src="image/studentlogin.png" id="sideImage" alt="Side Image">
+        </div>
+
+        <div class="box2">
+
+            <!-- STUDENT LOGIN -->
+            <div id="loginForm" class="formBox">
+                <h2>Student Login</h2>
+
+                <label>Email</label>
+                <input type="email" placeholder="Enter your email">
+
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Enter your password" id="studentLoginPass">
+                    <i class="fa-solid fa-eye" onclick="togglePass('studentLoginPass', this)"></i>
+                </div>
+
+                <button>Login</button>
+
+                <p>New student? <a onclick="showSignup()">Create your account</a></p>
+            </div>
+
+            <!-- STUDENT SIGNUP -->
+            <div id="signupForm" class="formBox">
+                <h2>Student Signup</h2>
+
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter full name">
+
+                <label>Email</label>
+                <input type="email" placeholder="Enter email">
+
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Create password" id="studentSignupPass">
+                    <i class="fa-solid fa-eye" onclick="togglePass('studentSignupPass', this)"></i>
+                </div>
+
+                <label>Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Re-enter password" id="studentSignupCPass">
+                    <i class="fa-solid fa-eye" onclick="togglePass('studentSignupCPass', this)"></i>
+                </div>
+
+                <button>Create Account</button>
+
+                <p>Already registered? <a onclick="showLogin()">Login here</a></p>
+            </div>
+
+            <!-- INSTITUTION LOGIN -->
+            <div id="instLoginForm" class="formBox">
+                <h2>Institution Login</h2>
+
+                <label>Institution Email</label>
+                <input type="email" placeholder="Enter institution email">
+
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Enter password" id="instLoginPass">
+                    <i class="fa-solid fa-eye" onclick="togglePass('instLoginPass', this)"></i>
+                </div>
+
+                <button>Login</button>
+
+                <p>New Institution? <a onclick="showInstSignup()">Create account</a></p>
+            </div>
+
+            <!-- INSTITUTION SIGNUP -->
+            <div id="instSignupForm" class="formBox">
+                <h2>Institution Signup</h2>
+
+                <label>Institution Name</label>
+                <input type="text" placeholder="Enter institution name">
+
+                <label>Email</label>
+                <input type="email" placeholder="Enter institution email">
+
+                <label>Password</label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Create password" id="instSignupPass">
+                    <i class="fa-solid fa-eye" onclick="togglePass('instSignupPass', this)"></i>
+                </div>
+
+                <label>Confirm Password</label>
+                <div class="password-wrapper">
+                    <input type="password" placeholder="Re-enter password" id="instSignupCPass">
+                    <i class="fa-solid fa-eye" onclick="togglePass('instSignupCPass', this)"></i>
+                </div>
+
+                <button>Create Account</button>
+
+                <p>Already registered? <a onclick="showInstLogin()">Login here</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM LINK (DYNAMIC) -->
+    <div class="bottom-switch" id="bottomSwitch">
+        <p>Are you an Institution? <a onclick="showInstLogin()">Click here to Login</a></p>
+    </div>
+
+    <script>
+        /* HIDE ALL FORM SECTIONS */
+        function hideAll() {
+            document.querySelectorAll(".formBox").forEach(f =>
+                f.style.display = "none"
+            );
+        }
+
+        /* CHANGE IMAGE FUNCTION */
+        function changeImage(path) {
+            document.getElementById("sideImage").src = path;
+        }
+
+        /* STUDENT LOGIN */
+        function showLogin() {
+            hideAll();
+            document.getElementById("loginForm").style.display = "flex";
+            changeImage("image/studentlogin.png");
+            document.getElementById("bottomSwitch").innerHTML =
+                `Are you an Institution? <a onclick="showInstLogin()">Click here to Login</a>`;
+        }
+
+        /* STUDENT SIGNUP */
+        function showSignup() {
+            hideAll();
+            document.getElementById("signupForm").style.display = "flex";
+            changeImage("image/studentlogin.png");
+            document.getElementById("bottomSwitch").innerHTML =
+                `Are you an Institution? <a onclick="showInstLogin()">Click here to Login</a>`;
+        }
+
+        /* INSTITUTION LOGIN */
+        function showInstLogin() {
+            hideAll();
+            document.getElementById("instLoginForm").style.display = "flex";
+            changeImage("image/unilogin.png");
+            document.getElementById("bottomSwitch").innerHTML =
+                `Are you a Student? <a onclick="showLogin()">Click here to Login</a>`;
+        }
+
+        /* INSTITUTION SIGNUP */
+        function showInstSignup() {
+            hideAll();
+            document.getElementById("instSignupForm").style.display = "flex";
+            changeImage("image/unilogin.png");
+            document.getElementById("bottomSwitch").innerHTML =
+                `Are you a Student? <a onclick="showLogin()">Click here to Login</a>`;
+        }
+
+        /* SHOW/HIDE PASSWORD */
+        function togglePass(id, icon) {
+            let field = document.getElementById(id);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <title>Student Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            margin-left: 15px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        .hamburg i:hover {
+            color: grey;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+            font-size: 25px;
+        }
+
+
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            gap: 40px;
+            transition: 0.4s;
+            align-items: flex-start;
+            padding-left: 25px;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+
+        .main-section {
+            margin-top: 110px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        /* DARK MODE */
+        .dark-mode {
+            background: #121212;
+            color: white;
+        }
+
+        .dark-mode .navbar {
+            background: #1e1e1e;
+            color: white;
+        }
+
+        .dark-mode .side-navbar {
+            background: #1e1e1e;
+            color: white;
+        }
+
+        .box-card {
+            height: 300px;
+            width: 100%;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .stat-box {
+            border: 2px solid #4A73F3;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            background: #ffffff;
+            box-shadow: 0px 4px 8px rgba(74, 115, 243, 0.15);
+            transition: 0.3s ease-in-out;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0px 12px 25px rgba(74, 115, 243, 0.35);
+        }
+
+
+        .stat-box p {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .stat-box h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4A73F3;
+        }
+
+        #box-total {
+            background: #d7e3ff;
+            /* light blue */
+        }
+
+        #box-verified {
+            background: #d9ffe5;
+            /* light green */
+        }
+
+        #box-pending {
+            background: #fff5d1;
+            /* light yellow */
+        }
+
+        #box-rejected {
+            background: #ffd6d6;
+            /* light red */
+        }
+
+
+
+        @media (max-width: 900px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .side-navbar {
+                width: 160px;
+                left: -160px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
+
+        <div class="hamburg">
+            <i class="fa-solid fa-bars active" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+
+            <i class="fa-solid fa-moon active" id="dark-btn"></i>
+            <i class="fa-solid fa-sun" id="light-btn"></i>
+        </div>
+    </div>
+
+    <!-- SIDE NAVBAR -->
+    <div class="side-navbar" id="sidebar">
+        <span>🏠 Dashboard</span>
+        <span>📄 My Certificates</span>
+        <span>🔍 Verify Certificate</span>
+        <span>👤 Profile</span>
+        <span>❓ Support / Help</span>
+        <span>🚪 Logout</span>
+    </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-section">
+        <h1>Welcome to Student Dashboard 👋</h1>
+        <p>Here is your certificate dashboard.</p>
+        <div class="stats-container">
+
+            <div class="stat-box" id="box-total">
+                <p>Total Certificates</p>
+                <h2>12</h2>
+            </div>
+
+            <div class="stat-box" id="box-verified">
+                <p>Verified</p>
+                <h2>10</h2>
+            </div>
+
+            <div class="stat-box" id="box-pending">
+                <p>Pending</p>
+                <h2>02</h2>
+            </div>
+
+            <div class="stat-box" id="box-rejected">
+                <p>Rejected</p>
+                <h2>00</h2>
+            </div>
+
+        </div>
+
+
+    </div>
+</body>
+<script src="studentdashboard.js"></script>
+
+</html>
