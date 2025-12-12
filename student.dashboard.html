@@ -161,22 +161,65 @@
 
         #box-total {
             background: #d7e3ff;
-            /* light blue */
+
         }
 
         #box-verified {
             background: #d9ffe5;
-            /* light green */
+
         }
 
         #box-pending {
             background: #fff5d1;
-            /* light yellow */
+
         }
 
         #box-rejected {
             background: #ffd6d6;
-            /* light red */
+
+        }
+
+
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 50px;
+
+        }
+
+        table button {
+            background-color: green;
+            color: white;
+            border: #121212;
+            border: none;
+            width: 100px;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f3f3;
+        }
+
+        button {
+            padding: 6px 12px;
+            cursor: pointer;
         }
 
 
@@ -256,6 +299,38 @@
 
         </div>
 
+        <h3>Recent Certificates</h3>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Certificate Name</th>
+                    <th>Issue Date</th>
+                    <th>Status</th>
+                    <th>View</th>
+                </tr>
+
+                <tr>
+                    <td>Blockchain Fundamentals</td>
+                    <td>2025-01-10</td>
+                    <td>Verified</td>
+                    <td><button>View</button></td>
+                </tr>
+
+                <tr>
+                    <td>Web Development Basics</td>
+                    <td>2024-11-05</td>
+                    <td>Pending</td>
+                    <td><button>View</button></td>
+                </tr>
+
+                <tr>
+                    <td>Data Structures</td>
+                    <td>2024-09-15</td>
+                    <td>Verified</td>
+                    <td><button>View</button></td>
+                </tr>
+            </table>
+        </div>
 
     </div>
 </body>
