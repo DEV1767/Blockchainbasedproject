@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <title>Student Dashboard</title>
+    <title>EDU PROOF | My certificate</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,12 @@
             transition: background 0.3s, color 0.3s;
         }
 
-        /* NAVBAR */
+        .main-section {
+            margin-top: 110px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
         .navbar {
             height: 90px;
             width: 100%;
@@ -167,44 +172,36 @@
             color: white;
         }
 
-        /* STAT CONTAINER */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+        .search {
             width: 100%;
-            margin: 40px auto;
-            padding: 0 20px;
+            max-width: 500px;
+            display: flex;
+            background: #fff;
+            border-radius: 30px;
+            padding: 5px 15px;
+            border: 1px solid #ddd;
+            align-items: center;
+            transition: 0.3s ease;
         }
 
-        .stat-box {
-            border: 2px solid #4A73F3;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            background: #ffffff;
-            box-shadow: 0px 4px 8px rgba(74, 115, 243, 0.15);
-            transition: 0.3s ease-in-out;
+        .search input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            padding: 10px;
         }
 
-        .stat-box:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0px 12px 25px rgba(74, 115, 243, 0.35);
-        }
-
-        .stat-box p {
+        .search button {
+            border: none;
+            background: none;
             font-size: 18px;
-            font-weight: 600;
-            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            color: #555;
         }
 
-        .stat-box h2 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #4A73F3;
-        }
-
-        /* TABLE */
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -238,102 +235,10 @@
             background: #f3f3f3;
         }
 
-        /* SEARCH BAR */
-        .searchbar-box {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-        }
-
-        .search {
-            width: 100%;
-            max-width: 500px;
-            display: flex;
-            background: #fff;
-            border-radius: 30px;
-            padding: 5px 15px;
-            border: 1px solid #ddd;
-            align-items: center;
-            transition: 0.3s ease;
-        }
-
-        .search input {
-            flex: 1;
-            border: none;
-            outline: none;
-            background: transparent;
-            font-size: 16px;
-            padding: 10px;
-        }
-
-        .search button {
-            border: none;
-            background: none;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 10px;
-            color: #555;
-        }
-
         .search:hover {
             border-color: #666;
         }
 
-        /* NOTIFICATIONS */
-        .notification-panel {
-            width: 100%;
-            background: #ffffff;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-top: 50px;
-        }
-
-        .notification {
-            display: flex;
-            gap: 12px;
-            align-items: start;
-            padding: 12px;
-            margin-bottom: 10px;
-            background: #f7f9fc;
-            border-radius: 10px;
-            border-left: 4px solid #3498db;
-        }
-
-        .notification .content .title {
-            font-weight: 600;
-        }
-
-        /* QUICK ACTION BUTTONS */
-        .quick-actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin: 15px 0;
-        }
-
-        .quick-btn {
-            flex: 1;
-            min-width: 140px;
-            background: #ffffff;
-            padding: 14px 18px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: 0.2s ease;
-            border: 1px solid #e8e8e8;
-        }
-
-        .quick-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        /* RESPONSIVE */
         @media (max-width: 900px) {
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
@@ -367,10 +272,8 @@
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
     <div class="navbar">
-        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
+        <div class="logo">My Certificates</div>
 
         <div class="hamburg">
             <i class="fa-solid fa-bars active" id="open-menu"></i>
@@ -383,43 +286,21 @@
 
     <!-- SIDE NAVBAR -->
     <div class="side-navbar" id="sidebar">
-        <span onclick="window.location.href='student.dashboard.html'">🏠 Dashboard</span>
-        <span onclick="window.location.href='mycertificate.html'">📄 My Certificates</span>
+        <span onclick="window.location.href='student.dashboard.html'" >🏠 Dashboard</span>
         <span>🔍 Verify Certificate</span>
         <span>👤 Profile</span>
         <span>❓ Support / Help</span>
         <span>🚪 Logout</span>
     </div>
-
-    <!-- MAIN CONTENT AREA -->
     <div class="main-section">
-        <h1>Welcome to Student Dashboard 👋</h1>
-        <p>Here is your certificate dashboard.</p>
-        <div class="stats-container">
-
-            <div class="stat-box" id="box-total">
-                <p>Total Certificates</p>
-                <h2>12</h2>
+        <div class="searchbar-box">
+            <div class="search">
+                <input type="text" placeholder="Search certificates..." />
+                <button><i class="fa fa-search"></i></button>
             </div>
-
-            <div class="stat-box" id="box-verified">
-                <p>Verified</p>
-                <h2>10</h2>
-            </div>
-
-            <div class="stat-box" id="box-pending">
-                <p>Pending</p>
-                <h2>02</h2>
-            </div>
-
-            <div class="stat-box" id="box-rejected">
-                <p>Rejected</p>
-                <h2>00</h2>
-            </div>
-
         </div>
 
-        <h3>Recent Certificates</h3>
+
         <div class="table-container">
             <table>
                 <tr>
@@ -451,67 +332,11 @@
                 </tr>
             </table>
         </div>
-        <div class="searchbar-box">
-            <div class="search">
-                <input type="text" placeholder="Search certificates..." />
-                <button><i class="fa fa-search"></i></button>
-            </div>
-        </div>
 
 
-        <div class="notification-panel">
-            <h3>Notifications</h3>
-
-            <div class="notification">
-                <div class="icon">🔔</div>
-                <div class="content">
-                    <div class="title">Your certificate has been verified.</div>
-                    <div class="time">2 hours ago</div>
-                </div>
-            </div>
-
-            <div class="notification">
-                <div class="icon">📄</div>
-                <div class="content">
-                    <div class="title">New certificate uploaded successfully.</div>
-                    <div class="time">1 day ago</div>
-                </div>
-            </div>
-
-            <div class="notification">
-                <div class="icon">⚠️</div>
-                <div class="content">
-                    <div class="title">Pending certificate needs your attention.</div>
-                    <div class="time">3 days ago</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="quick-actions">
-
-            <div class="quick-btn">
-                <i class="fa-solid fa-file-arrow-up"></i>
-                <span>Upload Certificate</span>
-            </div>
-
-            <div class="quick-btn">
-                <i class="fa-solid fa-download"></i>
-                <span>Download All</span>
-            </div>
-
-            <div class="quick-btn">
-                <i class="fa-solid fa-bell"></i>
-                <span>Notifications</span>
-            </div>
-
-            <div class="quick-btn">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
-            </div>
-
-        </div>
     </div>
 </body>
+
 <script src="studentdashboard.js"></script>
 
 </html>
