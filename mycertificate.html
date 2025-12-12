@@ -208,41 +208,160 @@
             margin-top: 50px;
         }
 
-        table button {
-            background-color: green;
-            color: white;
-            border: none;
-            width: 100px;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
+        .cert-container {
+            width: 100%;
+            padding: 20px;
         }
 
-        table {
+        .cert-container h2 {
+            color: #3554d3;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .cert-search {
+            margin-bottom: 15px;
+        }
+
+        .cert-search input {
+            width: 300px;
+            padding: 10px 12px;
+            border: 1.5px solid #bfc6ff;
+            border-radius: 6px;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        .cert-search input:focus {
+            border-color: #4A73F3;
+            box-shadow: 0px 0px 8px rgba(74, 115, 243, 0.3);
+        }
+
+        .cert-table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 600px;
+            background: white;
+            box-shadow: 0px 5px 15px rgba(74, 115, 243, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
         }
 
-        th,
-        td {
-            padding: 12px;
-            border: 1px solid #ddd;
+        .cert-table th {
+            background: #4A73F3;
+            color: white;
+            padding: 14px;
             text-align: left;
+            font-weight: 500;
+            font-size: 15px;
         }
 
-        th {
-            background: #f3f3f3;
+        .cert-table td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
         }
 
-        .search:hover {
-            border-color: #666;
+        .cert-table tr:hover {
+            background: #f3f6ff;
         }
+
+        /* STATUS BADGES */
+        .status {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .status.verified {
+            background: #28a745;
+            /* green */
+        }
+
+        .status.pending {
+            background: #ffc107;
+            /* yellow */
+            color: black;
+        }
+
+        .status.rejected {
+            background: #dc3545;
+            /* red */
+        }
+
+        /* ACTION BUTTONS */
+        .view-btn,
+        .download-btn {
+            padding: 6px 12px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .view-btn {
+            background: #4A73F3;
+        }
+
+        .view-btn:hover {
+            background: #3554d3;
+        }
+
+        .download-btn {
+            background: #28a745;
+        }
+
+        .download-btn:hover {
+            background: #1e7e34;
+        }
+
+        /* MOBILE RESPONSIVE */
 
         @media (max-width: 900px) {
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        @media (max-width: 650px) {
+            .cert-table thead {
+                display: none;
+            }
+
+            .cert-table,
+            .cert-table tbody,
+            .cert-table tr,
+            .cert-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .cert-table tr {
+                margin-bottom: 15px;
+                background: white;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0px 3px 8px rgba(74, 115, 243, 0.1);
+            }
+
+            .cert-table td {
+                display: flex;
+                padding: 8px 5px;
+            }
+
+            .cert-table td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #3554d3;
+            }
+        }
+
+        .search:hover {
+            border-color: #666;
         }
 
         @media (max-width: 600px) {
@@ -273,7 +392,7 @@
 
 <body>
     <div class="navbar">
-        <div class="logo">My Certificates</div>
+        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
 
         <div class="hamburg">
             <i class="fa-solid fa-bars active" id="open-menu"></i>
@@ -286,52 +405,69 @@
 
     <!-- SIDE NAVBAR -->
     <div class="side-navbar" id="sidebar">
-        <span onclick="window.location.href='student.dashboard.html'" >🏠 Dashboard</span>
+        <span onclick="window.location.href='student.dashboard.html'">🏠 Dashboard</span>
         <span>🔍 Verify Certificate</span>
         <span>👤 Profile</span>
         <span>❓ Support / Help</span>
         <span>🚪 Logout</span>
     </div>
     <div class="main-section">
-        <div class="searchbar-box">
-            <div class="search">
-                <input type="text" placeholder="Search certificates..." />
-                <button><i class="fa fa-search"></i></button>
+        <div class="cert-container">
+
+            <h2>My Certificates</h2>
+
+            <div class="cert-search">
+                <input type="text" placeholder="Search certificates...">
             </div>
-        </div>
 
+            <table class="cert-table">
+                <thead>
+                    <tr>
+                        <th>Certificate Name</th>
+                        <th>Issued On</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-        <div class="table-container">
-            <table>
-                <tr>
-                    <th>Certificate Name</th>
-                    <th>Issue Date</th>
-                    <th>Status</th>
-                    <th>View</th>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>Python Programming Certificate</td>
+                        <td>12 Jan 2024</td>
+                        <td><span class="status verified">Verified</span></td>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="download-btn">Download</button>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>Blockchain Fundamentals</td>
-                    <td>2025-01-10</td>
-                    <td>Verified</td>
-                    <td><button>View</button></td>
-                </tr>
+                    <tr>
+                        <td>Machine Learning Certificate</td>
+                        <td>05 Feb 2024</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="download-btn">Download</button>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td>Web Development Basics</td>
-                    <td>2024-11-05</td>
-                    <td>Pending</td>
-                    <td><button>View</button></td>
-                </tr>
+                    <tr>
+                        <td>Cyber Security Course</td>
+                        <td>22 Dec 2023</td>
+                        <td><span class="status rejected">Rejected</span></td>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="download-btn">Download</button>
+                        </td>
+                    </tr>
+                </tbody>
 
-                <tr>
-                    <td>Data Structures</td>
-                    <td>2024-09-15</td>
-                    <td>Verified</td>
-                    <td><button>View</button></td>
-                </tr>
             </table>
         </div>
+
+
+
+
 
 
     </div>
