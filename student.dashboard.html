@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <title>Student Dashboard</title>
-
     <style>
         * {
             margin: 0;
@@ -59,7 +58,7 @@
             font-size: 25px;
         }
 
-
+        /* SIDE NAV */
         .side-navbar {
             height: 100vh;
             width: 230px;
@@ -89,39 +88,86 @@
             color: #4A73F3;
         }
 
-
         .main-section {
             margin-top: 110px;
             padding: 25px;
             transition: 0.3s;
         }
 
-        /* DARK MODE */
+        /* ---------------- DARK MODE ---------------- */
+
         .dark-mode {
-            background: #121212;
+            background: #0d0d0d;
             color: white;
         }
 
         .dark-mode .navbar {
-            background: #1e1e1e;
+            background: #1a1a1a;
             color: white;
         }
 
         .dark-mode .side-navbar {
-            background: #1e1e1e;
+            background: #1a1a1a;
             color: white;
         }
 
-        .box-card {
-            height: 300px;
-            width: 100%;
-            margin-top: 50px;
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
+        .dark-mode .stat-box {
+            background: #1b1b1b;
+            border-color: #3b5ae0;
+            color: white;
         }
 
+        .dark-mode .stat-box p {
+            color: #ccc;
+        }
 
+        .dark-mode .stat-box h2 {
+            color: #5c84ff;
+        }
+
+        .dark-mode table {
+            background: #1b1b1b;
+            color: white;
+        }
+
+        .dark-mode th {
+            background: #2a2a2a;
+        }
+
+        .dark-mode td {
+            border-color: #333;
+        }
+
+        .dark-mode .search {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        .dark-mode .search input {
+            color: white;
+        }
+
+        .dark-mode .search button {
+            color: white;
+        }
+
+        .dark-mode .notification-panel {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .notification {
+            background: #222;
+            border-left-color: #5c84ff;
+        }
+
+        .dark-mode .quick-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+        }
+
+        /* STAT CONTAINER */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -146,7 +192,6 @@
             box-shadow: 0px 12px 25px rgba(74, 115, 243, 0.35);
         }
 
-
         .stat-box p {
             font-size: 18px;
             font-weight: 600;
@@ -159,51 +204,27 @@
             color: #4A73F3;
         }
 
-        #box-total {
-            background: #d7e3ff;
-
-        }
-
-        #box-verified {
-            background: #d9ffe5;
-
-        }
-
-        #box-pending {
-            background: #fff5d1;
-
-        }
-
-        #box-rejected {
-            background: #ffd6d6;
-
-        }
-
-
-
+        /* TABLE */
         .table-container {
             width: 100%;
             overflow-x: auto;
             margin-top: 50px;
-
         }
 
         table button {
             background-color: green;
             color: white;
-            border: #121212;
             border: none;
             width: 100px;
             border-radius: 5px;
             font-family: 'Poppins', sans-serif;
+            cursor: pointer;
         }
-
 
         table {
             width: 100%;
             border-collapse: collapse;
             min-width: 600px;
-
         }
 
         th,
@@ -217,16 +238,12 @@
             background: #f3f3f3;
         }
 
-        button {
-            padding: 6px 12px;
-            cursor: pointer;
-        }
-
+        /* SEARCH BAR */
         .searchbar-box {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top:50px;
+            margin-top: 50px;
         }
 
         .search {
@@ -257,28 +274,78 @@
             cursor: pointer;
             padding: 10px;
             color: #555;
-            
         }
 
         .search:hover {
             border-color: #666;
         }
 
+        /* NOTIFICATIONS */
+        .notification-panel {
+            width: 100%;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 50px;
+        }
 
+        .notification {
+            display: flex;
+            gap: 12px;
+            align-items: start;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f7f9fc;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
 
+        .notification .content .title {
+            font-weight: 600;
+        }
+
+        /* QUICK ACTION BUTTONS */
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .quick-btn {
+            flex: 1;
+            min-width: 140px;
+            background: #ffffff;
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            border: 1px solid #e8e8e8;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media screen and (max-width: 600px) {
+        @media (max-width: 600px) {
             .side-navbar {
                 width: 160px;
                 left: -160px;
             }
         }
-
 
         @media (max-width: 500px) {
             .stats-container {
@@ -391,6 +458,58 @@
             </div>
         </div>
 
+
+        <div class="notification-panel">
+            <h3>Notifications</h3>
+
+            <div class="notification">
+                <div class="icon">🔔</div>
+                <div class="content">
+                    <div class="title">Your certificate has been verified.</div>
+                    <div class="time">2 hours ago</div>
+                </div>
+            </div>
+
+            <div class="notification">
+                <div class="icon">📄</div>
+                <div class="content">
+                    <div class="title">New certificate uploaded successfully.</div>
+                    <div class="time">1 day ago</div>
+                </div>
+            </div>
+
+            <div class="notification">
+                <div class="icon">⚠️</div>
+                <div class="content">
+                    <div class="title">Pending certificate needs your attention.</div>
+                    <div class="time">3 days ago</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+
+            <div class="quick-btn">
+                <i class="fa-solid fa-file-arrow-up"></i>
+                <span>Upload Certificate</span>
+            </div>
+
+            <div class="quick-btn">
+                <i class="fa-solid fa-download"></i>
+                <span>Download All</span>
+            </div>
+
+            <div class="quick-btn">
+                <i class="fa-solid fa-bell"></i>
+                <span>Notifications</span>
+            </div>
+
+            <div class="quick-btn">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </div>
+
+        </div>
     </div>
 </body>
 <script src="studentdashboard.js"></script>
