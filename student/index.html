@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Login Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* MAIN CARD */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(74, 115, 243, 0.25);
+        }
+
+        h2 {
+            text-align: center;
+            color: #3554d3;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #23337a;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 44px;
+            margin-top: 6px;
+            margin-bottom: 14px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1.5px solid #bfc6ff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #4A73F3;
+            box-shadow: 0 0 8px rgba(74, 115, 243, 0.4);
+            outline: none;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #4A73F3;
+        }
+
+        button {
+            width: 100%;
+            height: 46px;
+            border-radius: 10px;
+            border: none;
+            background: #4A73F3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #375ad8;
+        }
+
+        p {
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+            margin-top: 18px;
+            line-height: 1.4;
+        }
+
+        a {
+            color: #4A73F3;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .formBox {
+            display: none;
+        }
+
+        #loginForm {
+            display: block;
+        }
+
+        /* SMALL DEVICES (PHONES) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 22px;
+                border-radius: 16px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            button {
+                font-size: 15px;
+            }
+        }
+
+        /* VERY SMALL DEVICES */
+        @media (max-width: 360px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            input,
+            select {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- LOGIN FORM -->
+        <div id="loginForm" class="formBox">
+            <h2>Login</h2>
+
+            <label>Login As</label>
+            <select>
+                <option>Student</option>
+                <option>Institute / College</option>
+                <option>Recruiter</option>
+            </select>
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter your email">
+
+            <label>Institute / Company Name</label>
+            <input type="text" placeholder="Enter institute or company name">
+
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="loginPass" placeholder="Enter password">
+                <i class="fa-solid fa-eye" onclick="togglePass('loginPass', this)"></i>
+            </div>
+
+            <button>Login</button>
+
+            <p>New user? <a onclick="showSignup()">Create account</a></p>
+        </div>
+
+        <!-- SIGNUP FORM -->
+        <div id="signupForm" class="formBox">
+            <h2>Signup</h2>
+
+            <label>Signup As</label>
+            <select>
+                <option>Student</option>
+                <option>Institute / College</option>
+                <option>Recruiter</option>
+            </select>
+
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter full name">
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
+
+            <label>Institute / Company Name</label>
+            <input type="text" placeholder="Enter institute or company name">
+
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="signupPass" placeholder="Create password">
+                <i class="fa-solid fa-eye" onclick="togglePass('signupPass', this)"></i>
+            </div>
+
+            <button>Create Account</button>
+
+            <p>Already registered? <a onclick="showLogin()">Login</a></p>
+        </div>
+
+    </div>
+
+    <script>
+        function showSignup() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("signupForm").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        }
+
+        function togglePass(id, icon) {
+            const field = document.getElementById(id);
+            if (field.type === "password") {
+                field.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                field.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

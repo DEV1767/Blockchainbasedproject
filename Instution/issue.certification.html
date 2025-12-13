@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EDUPROOF | Issue Certificate</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Poppins;
+            background: #f4f7ff;
+            min-height: 100vh;
+            transition: 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        /* SIDE NAV */
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            gap: 40px;
+            transition: 0.4s;
+            padding-left: 25px;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+        .main-section {
+            margin-top: 120px;
+            padding: 25px;
+        }
+
+        /* FORM BOX */
+        .box {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(74, 115, 243, .2);
+        }
+
+        .box h2 {
+            text-align: center;
+            color: #3554d3;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        button {
+            background: #4A73F3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #3554d3;
+        }
+
+        /* -------- DARK MODE -------- */
+        .dark-mode {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        .dark-mode .navbar,
+        .dark-mode .side-navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .box {
+            background: #1a1a1a;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .6);
+        }
+
+        .dark-mode label {
+            color: #ccc;
+        }
+
+        .dark-mode input {
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+        }
+
+        /* ---------- RESPONSIVE FIXES ---------- */
+
+        /* Tablets */
+        @media (max-width: 900px) {
+            .box {
+                max-width: 90%;
+                padding: 30px;
+            }
+        }
+
+        /* Mobile devices */
+        @media (max-width: 600px) {
+
+            /* Navbar */
+            .navbar {
+                padding: 0 15px;
+                font-size: 20px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .hamburg {
+                gap: 15px;
+            }
+
+            .hamburg i {
+                font-size: 20px;
+            }
+
+            /* Sidebar */
+            .side-navbar {
+                width: 200px;
+                left: -200px;
+            }
+
+            .side-navbar.active {
+                left: 0;
+            }
+
+            .side-navbar span {
+                font-size: 14px;
+            }
+
+            /* Main content */
+            .main-section {
+                padding: 15px;
+            }
+
+            /* Form box */
+            .box {
+                padding: 22px;
+                border-radius: 14px;
+            }
+
+            .box h2 {
+                font-size: 20px;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            input,
+            button {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            button i {
+                margin-right: 6px;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 400px) {
+            .box {
+                padding: 18px;
+            }
+
+            .navbar {
+                height: 80px;
+            }
+
+            .main-section {
+                margin-top: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
+        <div class="hamburg">
+            <i class="fa-solid fa-bars active" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+            <i class="fa-solid fa-moon active" id="dark-btn"></i>
+            <i class="fa-solid fa-sun" id="light-btn"></i>
+        </div>
+    </div>
+
+    <!-- SIDE NAV -->
+    <div class="side-navbar" id="sidebar">
+        <span onclick="location.href='insti.dashboard.html'">🏠 Dashboard</span>
+        <span onclick="location.href='issue.certificate.html'">📄 Issue Certificate</span>
+        <span onclick="location.href='manage.certificate.html'">📂 Manage Certificates</span>
+        <span onclick="location.href='insti.profile.html'">👤 Profile</span>
+        <span>🚪 Logout</span>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-section">
+        <div class="box">
+            <h2>Issue Certificate</h2>
+
+            <label>Student Name</label>
+            <input type="text" placeholder="Enter student name" required>
+
+            <label>Student ID</label>
+            <input type="text" placeholder="Enter student ID" required>
+
+            <label>Course Name</label>
+            <input type="text" placeholder="Enter course name" required>
+
+            <label>Issue Date</label>
+            <input type="date" required>
+
+            <button>
+                <i class="fa-solid fa-link"></i> Generate & Upload to Blockchain
+            </button>
+        </div>
+    </div>
+
+    <script src="/student/studentdashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUPROOF | Student Dashboard</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            transition: background .3s, color .3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        /* SIDEBAR */
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 30px 0 0 25px;
+            transition: .4s;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+        /* MAIN */
+        .main-section {
+            margin-top: 120px;
+            padding: 25px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 26px;
+        }
+
+        .dashboard-header p {
+            color: #666;
+        }
+
+        /* STATS */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(74, 115, 243, .2);
+            transition: .3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-box i {
+            font-size: 28px;
+            color: #4A73F3;
+        }
+
+        .stat-box h2 {
+            color: #4A73F3;
+            margin-top: 10px;
+        }
+
+        /* QUICK ACTIONS */
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .quick-btn {
+            flex: 1;
+            min-width: 160px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-4px);
+        }
+
+        /* TABLE */
+        .table-container {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(74, 115, 243, .15);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #eef3ff;
+        }
+
+        button {
+            background: #4A73F3;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .ok {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .pending {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        /* NOTIFICATIONS */
+        .notification-panel {
+            margin-top: 35px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+        }
+
+        .notification {
+            display: flex;
+            gap: 12px;
+            background: #f7f9fc;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* DARK MODE */
+        .dark-mode {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        .dark-mode .navbar,
+        .dark-mode .side-navbar {
+            background: #1a1a1a;
+        }
+
+        .dark-mode .stat-box,
+        .dark-mode .quick-btn,
+        .dark-mode .table-container,
+        .dark-mode .notification-panel {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode th {
+            background: #222;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 600px) {
+            .side-navbar {
+                width: 180px;
+                left: -180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">EDU PROOF ✔</div>
+        <div class="hamburg">
+            <i class="fa-solid fa-bars active" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+            <i class="fa-solid fa-moon active" id="dark-btn"></i>
+            <i class="fa-solid fa-sun" id="light-btn"></i>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="side-navbar" id="sidebar">
+        <span onclick="location.href='student.dashboard.html'">🏠 Dashboard</span>
+        <span onclick="location.href='mycertificate.html'">📄 My Certificates</span>
+        <span onclick="location.href='verify.html'">🔍 Verify Certificate</span>
+        <span onclick="location.href='profile.html'">👤 Profile</span>
+        <span>🚪 Logout</span>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-section">
+
+        <div class="dashboard-header">
+            <h1>Welcome, Shivam 👋</h1>
+            <p>Your certificate overview</p>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-container">
+            <div class="stat-box">
+                <i class="fa-solid fa-layer-group"></i>
+                <p>Total Certificates</p>
+                <h2>12</h2>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-circle-check"></i>
+                <p>Verified</p>
+                <h2>10</h2>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-clock"></i>
+                <p>Pending</p>
+                <h2>02</h2>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-circle-xmark"></i>
+                <p>Rejected</p>
+                <h2>00</h2>
+            </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions">
+            <div class="quick-btn"><i class="fa-solid fa-file"></i> My Certificates</div>
+            <div class="quick-btn"><i class="fa-solid fa-shield-check"></i> Verify</div>
+            <div class="quick-btn"><i class="fa-solid fa-download"></i> Download</div>
+            <div class="quick-btn"><i class="fa-solid fa-bell"></i> Alerts</div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <h3>Recent Certificates</h3><br>
+            <table>
+                <tr>
+                    <th>Certificate</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>View</th>
+                </tr>
+                <tr>
+                    <td>Blockchain Fundamentals</td>
+                    <td>10 Jan 2025</td>
+                    <td class="ok">Verified</td>
+                    <td><button>View</button></td>
+                </tr>
+                <tr>
+                    <td>Web Development</td>
+                    <td>05 Nov 2024</td>
+                    <td class="pending">Pending</td>
+                    <td><button>View</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="notification-panel">
+            <h3>Notifications</h3>
+            <div class="notification">✅ Certificate verified successfully</div>
+            <div class="notification">📄 New certificate uploaded</div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="studentdashboard.js"></script>
+
+</body>
+
+</html>
