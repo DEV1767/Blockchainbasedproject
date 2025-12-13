@@ -110,6 +110,67 @@
             color: white;
         }
 
+        /* -------- DARK MODE VERIFY PAGE -------- */
+
+        .dark-mode .verify-container {
+            background: #1a1a1a;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .6);
+        }
+
+        .dark-mode h2 {
+            color: #9bb0ff;
+        }
+
+        .dark-mode .verify-input input {
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .dark-mode .verify-input input::placeholder {
+            color: #aaa;
+        }
+
+        .dark-mode .verify-input button {
+            background: #4A73F3;
+        }
+
+        .dark-mode .verify-input button:hover {
+            background: #3554d3;
+        }
+
+        /* STATUS (keep success/error visible) */
+        .dark-mode .verified {
+            background: #133b22;
+            color: #7CFF9B;
+            border-color: #28a745;
+        }
+
+        .dark-mode .invalid {
+            background: #3b1515;
+            color: #ff9b9b;
+            border-color: #dc3545;
+        }
+
+        /* DETAILS */
+        .dark-mode .details {
+            background: #222;
+        }
+
+        .dark-mode .row span {
+            color: #b5c2ff;
+        }
+
+        .dark-mode .row {
+            color: #ddd;
+        }
+
+        .dark-mode .hash {
+            background: #333;
+            color: #9bb0ff;
+        }
+
+
         .verify-container {
             max-width: 800px;
             margin: 120px auto;
@@ -236,7 +297,7 @@
     <div class="side-navbar" id="sidebar">
         <span onclick="window.location.href='student.dashboard.html'">🏠 Dashboard</span>
         <span onclick="window.location.href='mycertificate.html'">📄 My Certificates</span>
-        <span>👤 Profile</span>
+        <span onclick="window.location.href='profile.html'">👤 Profile</span>
         <span>❓ Support / Help</span>
         <span>🚪 Logout</span>
     </div>

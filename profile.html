@@ -11,14 +11,151 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: #f4f7ff;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            margin-left: 15px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        .hamburg i:hover {
+            color: grey;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+            font-size: 25px;
+        }
+
+        /* SIDE NAV */
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            gap: 40px;
+            transition: 0.4s;
+            align-items: flex-start;
+            padding-left: 25px;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+        .main-section {
+            margin-top: 110px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .dark-mode {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        .dark-mode .navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .side-navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* -------- DARK MODE PROFILE -------- */
+
+        .dark-mode .profile-container {
+            background: #1a1a1a;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .6);
+        }
+
+        .dark-mode .profile-header {
+            background: linear-gradient(135deg, #2b2b2b, #121212);
+        }
+
+        .dark-mode .profile-body {
+            background: #1a1a1a;
+        }
+
+        .dark-mode .section h3 {
+            color: #9bb0ff;
+        }
+
+        .dark-mode .info-row span {
+            color: #b5c2ff;
+        }
+
+        .dark-mode .info-row {
+            color: #ddd;
+        }
+
+        .dark-mode .stat-box {
+            background: #222;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .6);
+        }
+
+        .dark-mode .stat-box h4 {
+            color: #9bb0ff;
+        }
+
+        .dark-mode .stat-box p {
+            color: #ccc;
+        }
+
+
 
         .profile-container {
             max-width: 900px;
-            margin: 120px auto;
+            margin: auto;
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(74, 115, 243, .2);
@@ -149,7 +286,7 @@
     <div class="side-navbar" id="sidebar">
         <span onclick="window.location.href='student.dashboard.html'">🏠 Dashboard</span>
         <span onclick="window.location.href='mycertificate.html'">📄 My Certificates</span>
-        <span>👤 Profile</span>
+        <span onclick="window.location.href='verify.html'">🔍 Verify Certificate</span>
         <span>❓ Support / Help</span>
         <span>🚪 Logout</span>
     </div>
@@ -172,8 +309,6 @@
                     <h3>Basic Information</h3>
                     <div class="info-row"><span>Student ID:</span> STU-2024-1102</div>
                     <div class="info-row"><span>Email:</span> shivam@gmail.com</div>
-                    <div class="info-row"><span>Branch:</span> AI & ML</div>
-                    <div class="info-row"><span>Year:</span> 1st Year</div>
                 </div>
 
                 <!-- CERTIFICATE STATS -->
@@ -195,16 +330,12 @@
                     </div>
                 </div>
 
-                <!-- ACTION -->
-                <div class="section" style="text-align:center">
-                    <button class="edit-btn">
-                        <i class="fa-solid fa-pen"></i> Edit Profile
-                    </button>
-                </div>
+
 
             </div>
         </div>
     </div>
 </body>
+<script src="studentdashboard.js"></script>
 
 </html>
