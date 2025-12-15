@@ -139,9 +139,6 @@
             <label>Email</label>
             <input type="email" id="loginEmail" placeholder="Enter your email">
 
-            <label>Institute / Company Name</label>
-            <input type="text" id="loginInstitute" placeholder="Enter institute or company name">
-
             <label>Password</label>
             <div class="password-wrapper">
                 <input type="password" id="loginPass" placeholder="Enter password">
@@ -158,7 +155,7 @@
             <h2>Signup</h2>
 
             <label>Signup As</label>
-            <select id="signupRole">
+            <select id="signupRole" onchange="handleRoleChange()">
                 <option value="student">Student</option>
                 <option value="institute">Institute / College</option>
                 <option value="hr">Recruiter</option>
@@ -170,8 +167,17 @@
             <label>Email</label>
             <input type="email" id="signupEmail" placeholder="Enter email">
 
-            <label>Institute / Company Name</label>
-            <input type="text" id="signupInstitute" placeholder="Enter institute or company name">
+            <!-- STUDENT FIELD -->
+            <div id="studentField">
+                <label>Institute Name</label>
+                <input type="text" id="signupInstitute" placeholder="Enter institute name">
+            </div>
+
+            <!-- HR FIELD -->
+            <div id="hrField" style="display:none;">
+                <label>Company Name</label>
+                <input type="text" id="signupCompany" placeholder="Enter company name">
+            </div>
 
             <label>Password</label>
             <div class="password-wrapper">
@@ -186,6 +192,7 @@
 
     </div>
 
+    <!-- ================= SCRIPT ================= -->
     <script>
         const API_URL = "http://localhost:5000/api/auth";
 
@@ -199,6 +206,13 @@
             loginForm.style.display = "block";
         }
 
+        function handleRoleChange() {
+            const role = signupRole.value;
+
+            studentField.style.display = role === "student" ? "block" : "none";
+            hrField.style.display = role === "hr" ? "block" : "none";
+        }
+
         function togglePass(id, icon) {
             const field = document.getElementById(id);
             field.type = field.type === "password" ? "text" : "password";
@@ -206,59 +220,81 @@
             icon.classList.toggle("fa-eye-slash");
         }
 
-        async function loginUser() {
-            const role = loginRole.value;
-            const email = loginEmail.value;
-            const password = loginPass.value;
-            const institutename = loginInstitute.value;
-
-            if (!email || !password) {
-                alert("Email and password required");
-                return;
-            }
-
-            const res = await fetch(`${API_URL}/login`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({ role, email, password, institutename })
-            });
-
-            const data = await res.json();
-            if (!res.ok) return alert(data.message || "Login failed");
-
-            if (data.role === "student") location.href = "student-dashboard.html";
-            else if (data.role === "institute") location.href = "institute-dashboard.html";
-            else location.href = "hr-dashboard.html";
-        }
-
         async function signupUser() {
             const role = signupRole.value;
-            const name = signupName.value;
-            const email = signupEmail.value;
-            const password = signupPass.value;
-            const institutename = signupInstitute.value;
+            const name = signupName.value.trim();
+            const email = signupEmail.value.trim();
+            const password = signupPass.value.trim();
 
-            if (!name || !email || !password) {
-                alert("All fields required");
-                return;
+            let data = { name, email, password };
+
+            if (role === "student") {
+                if (!signupInstitute.value.trim()) {
+                    alert("Institute name required");
+                    return;
+                }
+                data.institutionname = signupInstitute.value.trim();
+            }
+
+            if (role === "hr") {
+                if (!signupCompany.value.trim()) {
+                    alert("Company name required");
+                    return;
+                }
+                data.companyname = signupCompany.value.trim();
             }
 
             const res = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    role,
-                    data: { name, email, password, institutename }
-                })
+                body: JSON.stringify({ role, data })
             });
 
-            const data = await res.json();
-            if (!res.ok) return alert(data.message || "Signup failed");
+            const result = await res.json();
+            if (!res.ok) return alert(result.message);
 
             alert("Account created successfully");
             showLogin();
         }
+
+        async function loginUser() {
+            const role = loginRole.value;
+            const email = loginEmail.value.trim();
+            const password = loginPass.value.trim();
+
+            const res = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ role, email, password })
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                alert(result.message);
+                return;
+            }
+
+            // 🔥 CORRECT ROLE ACCESS
+            const userRole = result.data.role;
+
+            if (userRole === "student") {
+                location.href = "/student/student.dashboard.html";
+            }
+            else if (userRole === "hr") {
+                location.href = "/recurator/rec.index.html";
+            }
+            else if (userRole === "institute") {
+                location.href = "/Instution/insti.dashboard.html";
+            }
+            else {
+                alert("Unknown role from server: " + userRole);
+            }
+        }
+
+
+        handleRoleChange();
     </script>
 
 </body>
