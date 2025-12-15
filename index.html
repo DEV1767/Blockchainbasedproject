@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--Comment-->
 <html lang="en">
 
 <head>
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <!--Content-->
 
     <title>Login Portal</title>
 
@@ -31,7 +29,6 @@
             padding: 20px;
         }
 
-        /* MAIN CARD */
         .container {
             width: 100%;
             max-width: 420px;
@@ -45,7 +42,6 @@
             text-align: center;
             color: #3554d3;
             margin-bottom: 20px;
-            font-size: 24px;
         }
 
         label {
@@ -63,7 +59,6 @@
             padding: 10px;
             border-radius: 8px;
             border: 1.5px solid #bfc6ff;
-            font-family: 'Poppins', sans-serif;
             font-size: 14px;
         }
 
@@ -108,7 +103,6 @@
             color: #555;
             text-align: center;
             margin-top: 18px;
-            line-height: 1.4;
         }
 
         a {
@@ -124,34 +118,6 @@
         #loginForm {
             display: block;
         }
-
-        /* SMALL DEVICES (PHONES) */
-        @media (max-width: 480px) {
-            .container {
-                padding: 22px;
-                border-radius: 16px;
-            }
-
-            h2 {
-                font-size: 22px;
-            }
-
-            button {
-                font-size: 15px;
-            }
-        }
-
-        /* VERY SMALL DEVICES */
-        @media (max-width: 360px) {
-            h2 {
-                font-size: 20px;
-            }
-
-            input,
-            select {
-                font-size: 13px;
-            }
-        }
     </style>
 </head>
 
@@ -164,17 +130,17 @@
             <h2>Login</h2>
 
             <label>Login As</label>
-            <select>
-                <option>Student</option>
-                <option>Institute / College</option>
-                <option>Recruiter</option>
+            <select id="loginRole">
+                <option value="student">Student</option>
+                <option value="institute">Institute / College</option>
+                <option value="hr">Recruiter</option>
             </select>
 
             <label>Email</label>
-            <input type="email" placeholder="Enter your email">
+            <input type="email" id="loginEmail" placeholder="Enter your email">
 
             <label>Institute / Company Name</label>
-            <input type="text" placeholder="Enter institute or company name">
+            <input type="text" id="loginInstitute" placeholder="Enter institute or company name">
 
             <label>Password</label>
             <div class="password-wrapper">
@@ -182,7 +148,7 @@
                 <i class="fa-solid fa-eye" onclick="togglePass('loginPass', this)"></i>
             </div>
 
-            <button>Login</button>
+            <button onclick="loginUser()">Login</button>
 
             <p>New user? <a onclick="showSignup()">Create account</a></p>
         </div>
@@ -192,20 +158,20 @@
             <h2>Signup</h2>
 
             <label>Signup As</label>
-            <select>
-                <option>Student</option>
-                <option>Institute / College</option>
-                <option>Recruiter</option>
+            <select id="signupRole">
+                <option value="student">Student</option>
+                <option value="institute">Institute / College</option>
+                <option value="hr">Recruiter</option>
             </select>
 
             <label>Full Name</label>
-            <input type="text" placeholder="Enter full name">
+            <input type="text" id="signupName" placeholder="Enter full name">
 
             <label>Email</label>
-            <input type="email" placeholder="Enter email">
+            <input type="email" id="signupEmail" placeholder="Enter email">
 
             <label>Institute / Company Name</label>
-            <input type="text" placeholder="Enter institute or company name">
+            <input type="text" id="signupInstitute" placeholder="Enter institute or company name">
 
             <label>Password</label>
             <div class="password-wrapper">
@@ -213,7 +179,7 @@
                 <i class="fa-solid fa-eye" onclick="togglePass('signupPass', this)"></i>
             </div>
 
-            <button>Create Account</button>
+            <button onclick="signupUser()">Create Account</button>
 
             <p>Already registered? <a onclick="showLogin()">Login</a></p>
         </div>
@@ -221,25 +187,77 @@
     </div>
 
     <script>
+        const API_URL = "http://localhost:5000/api/auth";
+
         function showSignup() {
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("signupForm").style.display = "block";
+            loginForm.style.display = "none";
+            signupForm.style.display = "block";
         }
 
         function showLogin() {
-            document.getElementById("signupForm").style.display = "none";
-            document.getElementById("loginForm").style.display = "block";
+            signupForm.style.display = "none";
+            loginForm.style.display = "block";
         }
 
         function togglePass(id, icon) {
             const field = document.getElementById(id);
-            if (field.type === "password") {
-                field.type = "text";
-                icon.classList.replace("fa-eye", "fa-eye-slash");
-            } else {
-                field.type = "password";
-                icon.classList.replace("fa-eye-slash", "fa-eye");
+            field.type = field.type === "password" ? "text" : "password";
+            icon.classList.toggle("fa-eye");
+            icon.classList.toggle("fa-eye-slash");
+        }
+
+        async function loginUser() {
+            const role = loginRole.value;
+            const email = loginEmail.value;
+            const password = loginPass.value;
+            const institutename = loginInstitute.value;
+
+            if (!email || !password) {
+                alert("Email and password required");
+                return;
             }
+
+            const res = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ role, email, password, institutename })
+            });
+
+            const data = await res.json();
+            if (!res.ok) return alert(data.message || "Login failed");
+
+            if (data.role === "student") location.href = "student-dashboard.html";
+            else if (data.role === "institute") location.href = "institute-dashboard.html";
+            else location.href = "hr-dashboard.html";
+        }
+
+        async function signupUser() {
+            const role = signupRole.value;
+            const name = signupName.value;
+            const email = signupEmail.value;
+            const password = signupPass.value;
+            const institutename = signupInstitute.value;
+
+            if (!name || !email || !password) {
+                alert("All fields required");
+                return;
+            }
+
+            const res = await fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    role,
+                    data: { name, email, password, institutename }
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok) return alert(data.message || "Signup failed");
+
+            alert("Account created successfully");
+            showLogin();
         }
     </script>
 
