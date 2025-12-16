@@ -312,85 +312,91 @@
         </div>
     </div>
 
-    <!-- SCRIPT -->
-    <script>
-        /* UI CONTROLS */
-        const sidebar = document.getElementById("sidebar");
-        const openMenu = document.getElementById("open-menu");
-        const closeMenu = document.getElementById("close-menu");
-        const darkBtn = document.getElementById("dark-btn");
-        const lightBtn = document.getElementById("light-btn");
+   <script>
+    /* ================= UI CONTROLS ================= */
+    const sidebar = document.getElementById("sidebar");
+    const openMenu = document.getElementById("open-menu");
+    const closeMenu = document.getElementById("close-menu");
+    const darkBtn = document.getElementById("dark-btn");
+    const lightBtn = document.getElementById("light-btn");
 
-        openMenu.onclick = () => {
-            sidebar.classList.add("active");
-            openMenu.classList.remove("active");
-            closeMenu.classList.add("active");
-        };
+    openMenu.onclick = () => {
+        sidebar.classList.add("active");
+        openMenu.classList.remove("active");
+        closeMenu.classList.add("active");
+    };
 
-        closeMenu.onclick = () => {
-            sidebar.classList.remove("active");
-            closeMenu.classList.remove("active");
-            openMenu.classList.add("active");
-        };
+    closeMenu.onclick = () => {
+        sidebar.classList.remove("active");
+        closeMenu.classList.remove("active");
+        openMenu.classList.add("active");
+    };
 
-        darkBtn.onclick = () => {
-            document.body.classList.add("dark-mode");
-            darkBtn.classList.remove("active");
-            lightBtn.classList.add("active");
-        };
+    darkBtn.onclick = () => {
+        document.body.classList.add("dark-mode");
+        darkBtn.classList.remove("active");
+        lightBtn.classList.add("active");
+    };
 
-        lightBtn.onclick = () => {
-            document.body.classList.remove("dark-mode");
-            lightBtn.classList.remove("active");
-            darkBtn.classList.add("active");
-        };
+    lightBtn.onclick = () => {
+        document.body.classList.remove("dark-mode");
+        lightBtn.classList.remove("active");
+        darkBtn.classList.add("active");
+    };
 
-        /* BACKEND URL */
-        const BACKEND_URL = "https://backend-eduproof.vercel.app";
+    /* ================= BACKEND ================= */
+    const BACKEND_URL = "https://backend-eduproof.vercel.app";
 
-        /* LOAD PROFILE */
-        async function loadProfile() {
-            try {
-                const res = await fetch(`${BACKEND_URL}/api/auth/me`, {
-                    method: "GET",
-                    credentials: "include"
-                });
+    /* ================= LOAD PROFILE ================= */
+    async function loadProfile() {
+        try {
+            const res = await fetch(`${BACKEND_URL}/api/auth/me`, {
+                method: "GET",
+                credentials: "include"
+            });
 
-                if (!res.ok) {
-                    window.location.href = "login.html";
-                    return;
-                }
-
-                const data = await res.json();
-                const user = data.user;
-
-                document.getElementById("studentName").innerText = user.name;
-                document.getElementById("instituteName").innerText = user.institutename;
-                document.getElementById("email").innerText = user.email;
-                document.getElementById("studentId").innerText = user.studentId;
-                document.getElementById("institution").innerText = user.institutename;
-                document.getElementById("avatar").innerText = user.name.charAt(0).toUpperCase();
-
-            } catch (err) {
-                console.error(err);
+            if (!res.ok) {
+                window.location.href = "login.html";
+                return;
             }
+
+            const { user } = await res.json();
+
+            // Basic info
+            document.getElementById("studentName").innerText = user.name;
+            document.getElementById("email").innerText = user.email;
+            document.getElementById("avatar").innerText =
+                user.name.charAt(0).toUpperCase();
+
+            // Student-specific
+            if (user.role === "student") {
+                document.getElementById("studentId").innerText = user.studentId;
+                document.getElementById("instituteName").innerText = user.institutionname;
+                document.getElementById("institution").innerText = user.institutionname;
+                document.getElementById("certCount").innerText =
+                    user.certificateEarned ?? 0;
+            }
+
+        } catch (err) {
+            console.error("PROFILE LOAD ERROR:", err);
         }
+    }
 
-        /* LOGOUT */
-        // async function logoutUser() {
-        //     await fetch(`${BACKEND_URL}/api/auth/logout`, {
-        //         method: "POST",
-        //         credentials: "include"
-        //     });
-        //     window.location.href = "login.html";
-        // }
+    /* ================= LOGOUT ================= */
+    // async function logoutUser() {
+    //     await fetch(`${BACKEND_URL}/api/auth/logout`, {
+    //         method: "POST",
+    //         credentials: "include"
+    //     });
+    //     window.location.href = "login.html";
+    // }
 
-        document.addEventListener("DOMContentLoaded", loadProfile);
-    </script>
-
+    document.addEventListener("DOMContentLoaded", loadProfile);
+</script>
 
 </body>
 
 </html>
+
 
 
