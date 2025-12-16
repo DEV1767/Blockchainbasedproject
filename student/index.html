@@ -368,12 +368,12 @@
 
                 document.getElementById("username").innerText = user.name;
                 //document.getElementById("email").innerText = user.email;
-                document.getElementById("role").innerText = user.role;
+                //document.getElementById("role").innerText = user.role;
 
-                if (user.role === "student") {
-                    document.getElementById("studentId").innerText =
-                        user.studentId || "N/A";
-                }
+                //if (user.role === "student") {
+                 //   document.getElementById("studentId").innerText =
+                   //     user.studentId || "N/A";
+               // }
             })
             .catch(err => {
                 console.error("Error fetching user", err);
@@ -386,6 +386,7 @@
 
 
 </html>
+
 
 
 
