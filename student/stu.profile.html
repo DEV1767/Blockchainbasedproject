@@ -218,7 +218,6 @@
             color: #fff;
         }
 
-        /* RESPONSIVE */
         @media (max-width: 700px) {
             .details {
                 grid-template-columns: 1fr;
@@ -248,10 +247,10 @@
 
     <!-- SIDEBAR -->
     <div class="side-navbar" id="sidebar">
-        <span onclick="location.href='student.dashboard.html'">🏠 Dashboard</span>
+        <span onclick="location.href='index.html'">🏠 Dashboard</span>
         <span onclick="location.href='mycertificate.html'">📄 My Certificates</span>
+        <span onclick="location.href='certificate.detail.html'">📄 My Certificates</span>
         <span onclick="location.href='verify.html'">🔍 Verify Certificate</span>
-        <span onclick="location.href='profile.html'">👤 Profile</span>
         <span>🚪 Logout</span>
     </div>
 
@@ -259,66 +258,50 @@
     <div class="main">
         <div class="profile-card">
 
-            <!-- HEADER -->
             <div class="profile-header">
                 <div class="avatar">S</div>
-
                 <div class="profile-info">
-                    <h2>Shivam Chaudhary</h2>
-                    <p>BE • AI & ML • JNNCE University</p>
+                    <h2>Student Name</h2>
+                    <p>Institution Name</p>
                 </div>
             </div>
 
-            <!-- DETAILS -->
             <div class="details">
-
                 <div class="detail-box">
                     <label>Email</label>
-                    <div>shivam@student.jnnce.ac.in</div>
+                    <div>student@email.com</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Student ID</label>
-                    <div>STU-2048</div>
+                    <div>STU-0000</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Institution</label>
-                    <div>JNNCE University</div>
+                    <div>Institution Name</div>
                 </div>
-
 
                 <div class="detail-box">
                     <label>Certificates Earned</label>
-                    <div>12</div>
+                    <div>0</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Account Status</label>
                     <div>Verified Student</div>
                 </div>
-
             </div>
 
-            <!-- ACTIONS -->
             <div class="actions">
-                <button class="btn primary">
-                    <i class="fa-solid fa-pen"></i> Edit Profile
-                </button>
-
-                <button class="btn secondary">
-                    <i class="fa-solid fa-key"></i> Change Password
-                </button>
-
-                <button class="btn secondary">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </button>
+                <button class="btn primary"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+                <button class="btn secondary"><i class="fa-solid fa-key"></i> Change Password</button>
+                <button class="btn secondary"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
 
         </div>
     </div>
 
-    <!-- JS (SIDEBAR + DARK MODE) -->
     <script>
         const sidebar = document.getElementById("sidebar");
         const openMenu = document.getElementById("open-menu");
@@ -349,6 +332,32 @@
             lightBtn.classList.remove("active");
             darkBtn.classList.add("active");
         };
+
+        //load
+        async function loadProfile() {
+            try {
+                const res = await fetch("https://blockchainbasedproject.vercel.app/api/auth/me", {
+                    method: "GET",
+                    credentials: "include"
+                });
+
+                if (!res.ok) {
+                    window.location.href = "login.html";
+                    return;
+                }
+                const data = await res.json()
+                const user = data.user;
+
+                document.getElementById("studentName").innerText = user.name;
+                document.getElementById("instituteName").innerText = user.institutename;
+                document.getElementById("email").innerText = user.email;
+                document.getElementById("studentId").innerText = user.studentId;
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        loadProfile()
     </script>
 
 </body>
