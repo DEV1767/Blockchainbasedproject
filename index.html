@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <title>Login Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(74, 115, 243, 0.25);
+        }
+
+        h2 {
+            text-align: center;
+            color: #3554d3;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #23337a;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 44px;
+            margin-top: 6px;
+            margin-bottom: 14px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1.5px solid #bfc6ff;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #4A73F3;
+            box-shadow: 0 0 8px rgba(74, 115, 243, 0.4);
+            outline: none;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #4A73F3;
+        }
+
+        button {
+            width: 100%;
+            height: 46px;
+            border-radius: 10px;
+            border: none;
+            background: #4A73F3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #375ad8;
+        }
+
+        p {
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        a {
+            color: #4A73F3;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .formBox {
+            display: none;
+        }
+
+        #loginForm {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- LOGIN FORM -->
+        <div id="loginForm" class="formBox">
+            <h2>Login</h2>
+
+            <label>Login As</label>
+            <select id="loginRole">
+                <option value="student">Student</option>
+                <option value="institute">Institute / College</option>
+                <option value="hr">Recruiter</option>
+            </select>
+
+            <label>Email</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email">
+
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="loginPass" placeholder="Enter password">
+                <i class="fa-solid fa-eye" onclick="togglePass('loginPass', this)"></i>
+            </div>
+
+            <button onclick="loginUser()">Login</button>
+
+            <p>New user? <a onclick="showSignup()">Create account</a></p>
+        </div>
+
+        <!-- SIGNUP FORM -->
+        <div id="signupForm" class="formBox">
+            <h2>Signup</h2>
+
+            <label>Signup As</label>
+            <select id="signupRole" onchange="handleRoleChange()">
+                <option value="student">Student</option>
+                <option value="institute">Institute / College</option>
+                <option value="hr">Recruiter</option>
+            </select>
+
+            <label>Full Name</label>
+            <input type="text" id="signupName" placeholder="Enter full name">
+
+            <label>Email</label>
+            <input type="email" id="signupEmail" placeholder="Enter email">
+
+            <!-- STUDENT FIELD -->
+            <div id="studentField">
+                <label>Institute Name</label>
+                <input type="text" id="signupInstitute" placeholder="Enter institute name">
+            </div>
+
+            <!-- HR FIELD -->
+            <div id="hrField" style="display:none;">
+                <label>Company Name</label>
+                <input type="text" id="signupCompany" placeholder="Enter company name">
+            </div>
+
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="signupPass" placeholder="Create password">
+                <i class="fa-solid fa-eye" onclick="togglePass('signupPass', this)"></i>
+            </div>
+
+            <button onclick="signupUser()">Create Account</button>
+
+            <p>Already registered? <a onclick="showLogin()">Login</a></p>
+        </div>
+
+    </div>
+
+    <!-- ================= SCRIPT ================= -->
+    <script>
+        const API_URL = "https://backend-eduproof.vercel.app/api/auth";
+
+        function showSignup() {
+            loginForm.style.display = "none";
+            signupForm.style.display = "block";
+        }
+
+        function showLogin() {
+            signupForm.style.display = "none";
+            loginForm.style.display = "block";
+        }
+
+        function handleRoleChange() {
+            const role = signupRole.value;
+
+            studentField.style.display = role === "student" ? "block" : "none";
+            hrField.style.display = role === "hr" ? "block" : "none";
+        }
+
+        function togglePass(id, icon) {
+            const field = document.getElementById(id);
+            field.type = field.type === "password" ? "text" : "password";
+            icon.classList.toggle("fa-eye");
+            icon.classList.toggle("fa-eye-slash");
+        }
+
+        async function signupUser() {
+            const role = signupRole.value;
+            const name = signupName.value.trim();
+            const email = signupEmail.value.trim();
+            const password = signupPass.value.trim();
+
+            let data = { name, email, password };
+
+            if (role === "student") {
+                if (!signupInstitute.value.trim()) {
+                    alert("Institute name required");
+                    return;
+                }
+                data.institutionname = signupInstitute.value.trim();
+            }
+
+            if (role === "hr") {
+                if (!signupCompany.value.trim()) {
+                    alert("Company name required");
+                    return;
+                }
+                data.companyname = signupCompany.value.trim();
+            }
+
+            const res = await fetch(`${API_URL}/register`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ role, data })
+            });
+
+            const result = await res.json();
+            if (!res.ok) return alert(result.message);
+
+            alert("Account created successfully");
+            showLogin();
+        }
+
+        async function loginUser() {
+            const role = loginRole.value;
+            const email = loginEmail.value.trim();
+            const password = loginPass.value.trim();
+
+            const res = await fetch(`${API_URL}/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ role, email, password })
+            });
+
+            const result = await res.json();
+
+            if (!res.ok) {
+                alert(result.message);
+                return;
+            }
+
+            // 🔥 CORRECT ROLE ACCESS
+            const userRole = result.data.role;
+
+            if (userRole === "student") {
+                location.href = "/student/student.dashboard.html";
+            }
+            else if (userRole === "hr") {
+                location.href = "/recurator/rec.index.html";
+            }
+            else if (userRole === "institute") {
+                location.href = "/Instution/insti.dashboard.html";
+            }
+            else {
+                alert("Unknown role from server: " + userRole);
+            }
+        }
+
+
+        handleRoleChange();
+    </script>
+
+</body>
+
+</html>
