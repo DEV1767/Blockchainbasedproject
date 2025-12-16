@@ -352,40 +352,13 @@
 
     <!-- JS -->
     <script src="studentdashboard.js"></script>
-    <script>
-        fetch("https://backend-eduproof.vercel.app/api/auth/me", {
-            method: "GET",
-            credentials: "include"   // 🔥 REQUIRED for cookies
-        })
-            .then(res => res.json())
-            .then(data => {
-                // if (!data.success) {
-                //     window.location.href = "http://localhost:5500/login.html";
-                //     return;
-                // }
-
-                const user = data.user;
-
-                document.getElementById("username").innerText = user.name;
-                //document.getElementById("email").innerText = user.email;
-                //document.getElementById("role").innerText = user.role;
-
-                //if (user.role === "student") {
-                 //   document.getElementById("studentId").innerText =
-                   //     user.studentId || "N/A";
-               // }
-            })
-            .catch(err => {
-                console.error("Error fetching user", err);
-               window.location.href = "https://blockchainbasedproject.vercel.app/index.html";
-            });
-    </script>
 
 </body>
 
 
 
 </html>
+
 
 
 
