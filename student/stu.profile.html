@@ -377,18 +377,19 @@
         }
 
         /* LOGOUT */
-        async function logoutUser() {
-            await fetch(`${BACKEND_URL}/api/auth/logout`, {
-                method: "POST",
-                credentials: "include"
-            });
-            window.location.href = "login.html";
-        }
+        // async function logoutUser() {
+        //     await fetch(`${BACKEND_URL}/api/auth/logout`, {
+        //         method: "POST",
+        //         credentials: "include"
+        //     });
+        //     window.location.href = "login.html";
+        // }
 
-        document.addEventListener("DOMContentLoaded", loadProfile);
+        // document.addEventListener("DOMContentLoaded", loadProfile);
     </script>
 
 
 </body>
 
 </html>
+
