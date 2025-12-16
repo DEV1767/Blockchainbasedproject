@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDUPROOF | Instution Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            margin-left: 15px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        .hamburg i:hover {
+            color: grey;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+            font-size: 25px;
+        }
+
+        /* SIDE NAV */
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            gap: 40px;
+            transition: 0.4s;
+            align-items: flex-start;
+            padding-left: 25px;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+        .main-section {
+            margin-top: 110px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        /* ---------------- DARK MODE ---------------- */
+
+        .dark-mode {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        .dark-mode .navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .side-navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #3554d3;
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 8px 20px rgba(74, 115, 243, .2);
+        }
+
+        .stat-card i {
+            font-size: 30px;
+            color: #4A73F3;
+        }
+
+        .stat-card h3 {
+            font-size: 24px;
+        }
+
+        .stat-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .stat-card.verified i {
+            color: #28a745;
+        }
+
+        .stat-card.pending i {
+            color: #ffc107;
+        }
+
+        .stat-card.revoked i {
+            color: #dc3545;
+        }
+
+        /* QUICK ACTIONS */
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quick-actions button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            background: #4A73F3;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .quick-actions button:hover {
+            background: #3554d3;
+        }
+
+        /* TABLE */
+        .table-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(74, 115, 243, .15);
+        }
+
+        .table-box h3 {
+            margin-bottom: 15px;
+            color: #3554d3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eef3ff;
+        }
+
+        .ok {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .pending {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        /* DARK MODE */
+        .dark-mode .page-title,
+        .dark-mode .table-box h3 {
+            color: #9bb0ff;
+        }
+
+        .dark-mode .stat-card,
+        .dark-mode .table-box {
+            background: #1a1a1a;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .6);
+        }
+
+        .dark-mode th {
+            background: #222;
+        }
+
+        .dark-mode td,
+        .dark-mode p {
+            color: #ddd;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 600px) {
+            .quick-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
+
+        <div class="hamburg">
+            <i class="fa-solid fa-bars active" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+
+            <i class="fa-solid fa-moon active" id="dark-btn"></i>
+            <i class="fa-solid fa-sun" id="light-btn"></i>
+        </div>
+    </div>
+
+    <!-- SIDE NAVBAR -->
+    <div class="side-navbar" id="sidebar">
+        <span onclick="window.location.href='insti.dashboard.html'">🏠 Dashboard</span>
+        <span onclick="window.location.href='issue.certification.html'">📄 Issue Certificates</span>
+        <span onclick="window.location.href='manage.certicate.html'">🔍 Manage Certificate</span>
+        <span onclick="window.location.href='profile.html'">👤 Profile</span>
+        <span>🚪 Logout</span>
+    </div>
+    <div class="main-section">
+        <h2 class="page-title">Institution Dashboard</h2>
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <i class="fa-solid fa-file-circle-check"></i>
+                <div>
+                    <h3>128</h3>
+                    <p>Certificates Issued</p>
+                </div>
+            </div>
+
+            <div class="stat-card verified">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <h3>112</h3>
+                    <p>Verified</p>
+                </div>
+            </div>
+
+            <div class="stat-card pending">
+                <i class="fa-solid fa-clock"></i>
+                <div>
+                    <h3>14</h3>
+                    <p>Pending</p>
+                </div>
+            </div>
+
+            <div class="stat-card revoked">
+                <i class="fa-solid fa-ban"></i>
+                <div>
+                    <h3>2</h3>
+                    <p>Revoked</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions">
+            <button onclick="location.href='issue.certification.html'">
+                <i class="fa-solid fa-plus"></i> Issue Certificate
+            </button>
+            <button onclick="location.href='manage.certificate.html'">
+                <i class="fa-solid fa-list"></i> Manage Certificates
+            </button>
+        </div>
+
+        <!-- RECENT CERTIFICATES -->
+        <div class="table-box">
+            <h3>Recently Issued Certificates</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Certificate ID</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CERT-2024-001</td>
+                        <td>Shivam Chaudhary</td>
+                        <td>Python Programming</td>
+                        <td>12 Jan 2024</td>
+                        <td class="ok">Verified</td>
+                    </tr>
+                    <tr>
+                        <td>CERT-2024-002</td>
+                        <td>Ananya Sharma</td>
+                        <td>AI & ML</td>
+                        <td>15 Jan 2024</td>
+                        <td class="pending">Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+<script src="/student/studentdashboard.js"></script>
+
+</html>

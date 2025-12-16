@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Profile | EDU PROOF</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f6fb;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #23337a;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* MAIN */
+        .main {
+            margin-top: 120px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-card {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+        }
+
+        /* HEADER */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #4A73F3;
+            color: white;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .profile-info h2 {
+            color: #3554d3;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* DETAILS GRID */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .detail-box {
+            background: #f8f9ff;
+            padding: 18px;
+            border-radius: 12px;
+        }
+
+        .detail-box label {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .detail-box div {
+            font-size: 15px;
+            font-weight: 500;
+            margin-top: 4px;
+            color: #333;
+        }
+
+        /* ACTIONS */
+        .actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .btn.primary {
+            background: #4A73F3;
+            color: white;
+        }
+
+        .btn.secondary {
+            background: #eef3ff;
+            color: #3554d3;
+            border: 1px solid #bfc6ff;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        Recruiter Profile
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+        <div class="profile-card">
+
+            <!-- PROFILE HEADER -->
+            <div class="profile-header">
+                <div class="avatar">R</div>
+
+                <div class="profile-info">
+                    <h2>Rahul Sharma</h2>
+                    <p>Senior Recruiter • ABC Technologies</p>
+                </div>
+            </div>
+
+            <!-- DETAILS -->
+            <div class="details-grid">
+
+                <div class="detail-box">
+                    <label>Email</label>
+                    <div>rahul@abctech.com</div>
+                </div>
+
+                <div class="detail-box">
+                    <label>Company / Organization</label>
+                    <div>ABC Technologies Pvt Ltd</div>
+                </div>
+
+                <div class="detail-box">
+                    <label>Role</label>
+                    <div>Recruiter / Verifier</div>
+                </div>
+
+                <div class="detail-box">
+                    <label>Account Type</label>
+                    <div>Verified Recruiter</div>
+                </div>
+
+                <div class="detail-box">
+                    <label>Joined On</label>
+                    <div>15 March 2025</div>
+                </div>
+
+                <div class="detail-box">
+                    <label>Verification Credits</label>
+                    <div>42 Remaining</div>
+                </div>
+
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="actions">
+                <button class="btn primary">
+                    <i class="fa-solid fa-pen"></i> Edit Profile
+                </button>
+
+                <button class="btn secondary">
+                    <i class="fa-solid fa-lock"></i> Change Password
+                </button>
+
+                <button class="btn secondary">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

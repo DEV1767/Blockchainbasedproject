@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Certificates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            margin-left: 15px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        .hamburg i:hover {
+            color: grey;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+            font-size: 25px;
+        }
+
+        /* SIDE NAV */
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            gap: 40px;
+            transition: 0.4s;
+            align-items: flex-start;
+            padding-left: 25px;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+        .main-section {
+            margin-top: 110px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        /* ---------------- DARK MODE ---------------- */
+
+        .dark-mode {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        .dark-mode .navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .side-navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .table-box {
+            margin: 25px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left
+        }
+
+        th {
+            background: #eef3ff
+        }
+
+        .dark-mode .table-box {
+            background: #1a1a1a;
+            color: #fff
+        }
+
+        .dark-mode th {
+            background: #222
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
+
+        <div class="hamburg">
+            <i class="fa-solid fa-bars active" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+
+            <i class="fa-solid fa-moon active" id="dark-btn"></i>
+            <i class="fa-solid fa-sun" id="light-btn"></i>
+        </div>
+    </div>
+
+    <!-- SIDE NAVBAR -->
+    <div class="side-navbar" id="sidebar">
+        <span onclick="window.location.href='insti.dashboard.html'">🏠 Dashboard</span>
+        <span onclick="window.location.href='issue.certification.html'">📄 Issue Certificates</span>
+        <span onclick="window.location.href='manage.certicate.html'">🔍 Manage Certificate</span>
+        <span onclick="window.location.href='profile.html'">👤 Profile</span>
+        <span>🚪 Logout</span>
+    </div>
+    <div class="main-section">
+
+    </div>
+    <div class="table-box">
+        <h2>Issued Certificates</h2><br>
+        <table>
+            <tr>
+                <th>Certificate ID</th>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>CERT-001</td>
+                <td>Shivam</td>
+                <td>Python</td>
+                <td>Verified</td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="/student/studentdashboard.js"></script>
+</body>
+
+</html>

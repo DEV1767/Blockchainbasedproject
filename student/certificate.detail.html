@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <title>EDUPROOF | Certificate details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 90px;
+            width: 100%;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hamburg i {
+            font-size: 22px;
+            margin-left: 15px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .hamburg i.active {
+            display: inline-block;
+        }
+
+        .hamburg i:hover {
+            color: grey;
+        }
+
+        .hamburg {
+            display: flex;
+            gap: 25px;
+            font-size: 25px;
+        }
+
+        /* SIDE NAV */
+        .side-navbar {
+            height: 100vh;
+            width: 230px;
+            position: fixed;
+            left: -230px;
+            top: 90px;
+            background: linear-gradient(135deg, #dbe7ff, #eef3ff);
+            display: flex;
+            flex-direction: column;
+            padding-top: 30px;
+            gap: 40px;
+            transition: 0.4s;
+            align-items: flex-start;
+            padding-left: 25px;
+        }
+
+        .side-navbar.active {
+            left: 0;
+        }
+
+        .side-navbar span {
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .side-navbar span:hover {
+            color: #4A73F3;
+        }
+
+        .main-section {
+            margin-top: 110px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        /* ---------------- DARK MODE ---------------- */
+
+        .dark-mode {
+            background: #0d0d0d;
+            color: white;
+        }
+
+        .dark-mode .navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode .side-navbar {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .cert-details-container {
+            display: flex;
+            gap: 40px;
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(74, 115, 243, 0.15);
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        /* LEFT SIDE */
+        .cert-preview img {
+            width: 450px;
+            border-radius: 12px;
+
+        }
+
+        /* RIGHT SIDE INFORMATION */
+        .cert-info h2 {
+            color: #3554d3;
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .info-row span {
+            font-weight: 600;
+            color: #23337a;
+        }
+
+        .info-row p {
+            color: #444;
+        }
+
+        .hash {
+            font-family: monospace;
+            background: #eef3ff;
+            padding: 6px 8px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        /* STATUS BADGE */
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 10px;
+            width: fit-content;
+        }
+
+        .status-badge.verified {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-badge.pending {
+            background: #ffc107;
+        }
+
+        .status-badge.rejected {
+            background: #dc3545;
+            color: white;
+        }
+
+        /* ACTION BUTTONS */
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .download-btn,
+        .verify-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            color: white;
+        }
+
+        .download-btn {
+            background: #28a745;
+        }
+
+        .verify-btn {
+            background: #4A73F3;
+        }
+
+        /* QR SECTION */
+        .qr-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .qr-section img {
+            width: 120px;
+        }
+
+        .qr-section p {
+            font-size: 13px;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .cert-details-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .cert-preview img {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">EDU PROOF <i class="fa-regular fa-circle-check" style="font-size: 20px"></i></div>
+
+        <div class="hamburg">
+            <i class="fa-solid fa-bars active" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+
+            <i class="fa-solid fa-moon active" id="dark-btn"></i>
+            <i class="fa-solid fa-sun" id="light-btn"></i>
+        </div>
+    </div>
+
+    <!-- SIDE NAVBAR -->
+    <div class="side-navbar" id="sidebar">
+        <span onclick="window.location.href='student.dashboard.html'">🏠 Dashboard</span>
+        <span onclick="window.location.href='verify.html'">🔍 Verify Certificate</span>
+        <span onclick="window.location.href='profile.html'">👤 Profile</span>
+        <span>🚪 Logout</span>
+    </div>
+    <div class="main-section">
+        <div class="cert-details-container">
+
+            <!-- LEFT: Certificate preview -->
+            <div class="cert-preview">
+                <img src="image/unilogin.png" alt="Certificate Preview">
+            </div>
+
+            <!-- RIGHT: Certificate information -->
+            <div class="cert-info">
+
+                <h2>Python Programming Certificate</h2>
+
+                <div class="info-row">
+                    <span>Student Name:</span>
+                    <p>Shivam Chaudhary</p>
+                </div>
+
+                <div class="info-row">
+                    <span>Issued By:</span>
+                    <p>JNNCE University</p>
+                </div>
+
+                <div class="info-row">
+                    <span>Issued On:</span>
+                    <p>12 Jan 2024</p>
+                </div>
+
+                <div class="info-row">
+                    <span>Certificate ID:</span>
+                    <p>CERT-2024-00123</p>
+                </div>
+
+                <div class="info-row">
+                    <span>Blockchain Hash:</span>
+                    <p class="hash">3f6a7b2d9c1e8f4a9e2bb9a3aa12cd46</p>
+                </div>
+
+                <div class="status-badge verified">Verified</div>
+
+                <!-- ACTION BUTTONS -->
+                <div class="buttons">
+                    <button class="download-btn">Download PDF</button>
+                    <button class="verify-btn">Verify on Blockchain</button>
+                </div>
+
+                <!-- QR CODE -->
+                <div class="qr-section">
+                    <img src="image/unilogin.png" alt="QR Code">
+                    <p>Scan to verify</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="studentdashboard.js"></script>
+</body>
+
+</html>
