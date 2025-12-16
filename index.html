@@ -165,8 +165,7 @@
                 <label>Institute Name</label>
                 <input type="text" id="signupInstitute">
 
-                <label>Student ID</label>
-                <input type="text" id="signupStudentId">
+              
             </div>
 
             <!-- HR -->
@@ -180,8 +179,7 @@
                 <label>Institute Name</label>
                 <input type="text" id="signupInstituteName">
 
-                <label>Institute Code</label>
-                <input type="text" id="signupInstituteCode">
+               
             </div>
 
             <label>Password</label>
@@ -249,7 +247,7 @@
 
             if (role === "student") {
                 data.institutionName = signupInstitute.value.trim();
-                data.studentId = signupStudentId.value.trim();
+               
             }
 
             if (role === "hr") {
@@ -258,7 +256,7 @@
 
             if (role === "institute") {
                 data.instituteName = signupInstituteName.value.trim();
-                data.instituteCode = signupInstituteCode.value.trim();
+              
             }
 
             const res = await fetch(`${API_URL}/register`, {
@@ -328,4 +326,5 @@
 
 
 </html>
+
 
