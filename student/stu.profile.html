@@ -259,50 +259,62 @@
         <div class="profile-card">
 
             <div class="profile-header">
-                <div class="avatar">S</div>
+                <div class="avatar" id="avatar">S</div>
                 <div class="profile-info">
-                    <h2>Student Name</h2>
-                    <p>Institution Name</p>
+                    <h2 id="studentName">Student Name</h2>
+                    <p id="instituteName">Institution Name</p>
                 </div>
             </div>
 
             <div class="details">
+
                 <div class="detail-box">
                     <label>Email</label>
-                    <div>student@email.com</div>
+                    <div id="email">student@email.com</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Student ID</label>
-                    <div>STU-0000</div>
+                    <div id="studentId">STU-0000</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Institution</label>
-                    <div>Institution Name</div>
+                    <div id="institution">Institution Name</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Certificates Earned</label>
-                    <div>0</div>
+                    <div id="certCount">0</div>
                 </div>
 
                 <div class="detail-box">
                     <label>Account Status</label>
-                    <div>Verified Student</div>
+                    <div id="status">Verified Student</div>
                 </div>
+
             </div>
 
             <div class="actions">
-                <button class="btn primary"><i class="fa-solid fa-pen"></i> Edit Profile</button>
-                <button class="btn secondary"><i class="fa-solid fa-key"></i> Change Password</button>
-                <button class="btn secondary"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+                <button class="btn primary" onclick="location.href='edit-profile.html'">
+                    <i class="fa-solid fa-pen"></i> Edit Profile
+                </button>
+
+                <button class="btn secondary" onclick="location.href='change-password.html'">
+                    <i class="fa-solid fa-key"></i> Change Password
+                </button>
+
+                <button class="btn secondary" onclick="logoutUser()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
             </div>
 
         </div>
     </div>
 
+    <!-- SCRIPT -->
     <script>
+        /* UI CONTROLS */
         const sidebar = document.getElementById("sidebar");
         const openMenu = document.getElementById("open-menu");
         const closeMenu = document.getElementById("close-menu");
@@ -333,36 +345,50 @@
             darkBtn.classList.add("active");
         };
 
-        //load
+        /* BACKEND URL */
+        const BACKEND_URL = "https://backend-eduproof.vercel.app";
+
+        /* LOAD PROFILE */
         async function loadProfile() {
             try {
-                const res = await fetch("https://backend-eduproof.vercel.app/api/auth/me", {
+                const res = await fetch(`${BACKEND_URL}/api/auth/me`, {
                     method: "GET",
                     credentials: "include"
                 });
 
                 if (!res.ok) {
-                    console.log(res)
-                   // window.location.href = "login.html";
+                    window.location.href = "login.html";
                     return;
                 }
-                const data = await res.json()
+
+                const data = await res.json();
                 const user = data.user;
 
                 document.getElementById("studentName").innerText = user.name;
                 document.getElementById("instituteName").innerText = user.institutename;
                 document.getElementById("email").innerText = user.email;
                 document.getElementById("studentId").innerText = user.studentId;
+                document.getElementById("institution").innerText = user.institutename;
+                document.getElementById("avatar").innerText = user.name.charAt(0).toUpperCase();
+
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         }
 
-        loadProfile()
+        /* LOGOUT */
+        async function logoutUser() {
+            await fetch(`${BACKEND_URL}/api/auth/logout`, {
+                method: "POST",
+                credentials: "include"
+            });
+            window.location.href = "login.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", loadProfile);
     </script>
+
 
 </body>
 
 </html>
-
-
