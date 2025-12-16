@@ -342,7 +342,8 @@
                 });
 
                 if (!res.ok) {
-                    window.location.href = "login.html";
+                    console.log(res)
+                   // window.location.href = "login.html";
                     return;
                 }
                 const data = await res.json()
@@ -363,3 +364,4 @@
 </body>
 
 </html>
+
