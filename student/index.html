@@ -367,7 +367,7 @@
                 const user = data.user;
 
                 document.getElementById("username").innerText = user.name;
-                document.getElementById("email").innerText = user.email;
+                //document.getElementById("email").innerText = user.email;
                 document.getElementById("role").innerText = user.role;
 
                 if (user.role === "student") {
@@ -377,7 +377,7 @@
             })
             .catch(err => {
                 console.error("Error fetching user", err);
-               // window.location.href = "https://blockchainbasedproject.vercel.app/index.html";
+               window.location.href = "https://blockchainbasedproject.vercel.app/index.html";
             });
     </script>
 
@@ -386,6 +386,7 @@
 
 
 </html>
+
 
 
 
