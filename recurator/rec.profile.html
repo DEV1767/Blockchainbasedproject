@@ -331,32 +331,44 @@
 </body>
 <script src="/student/studentdashboard.js"></script>
 <script>
-    const Url = "https://backend-eduproof.vercel.app"
-    async function loadData() {
-        try {
-            const response = await fetch(`${Url}/api/auth/me`, {
-                method: "GET",
-                credentials: "include"
-            })
-            if (!response.ok) {
+const Url = "https://backend-eduproof.vercel.app";
 
-                window.location.href = "login.html";
-                return;
-            }
-            const data = await response.json()
-            const user = data.user;
-            document.getElementById("avatar").innerText = user.name.charAt(0).toUpperCase();
-            document.getElementById("recruiter-name").innerText = user.name;
-            document.getElementById("recruiter-email").innerText = user.email;
-            document.getElementById("recruiter-company").innerText = user.company;
+async function loadData() {
+    try {
+        const response = await fetch(`${Url}/api/auth/me`, {
+            method: "GET",
+            credentials: "include"
+        });
 
-
-        } catch (error) {
-            console.log(error)
+        if (!response.ok) {
+            window.location.href = "login.html";
+            return;
         }
+
+        const data = await response.json();
+        const user = data.user;
+
+        document.getElementById("profile-avatar").innerText =
+            user.name.charAt(0).toUpperCase();
+
+        document.getElementById("recruiter-name").innerText =
+            user.name;
+
+        document.getElementById("recruiter-email").innerText =
+            user.email;
+
+        document.getElementById("recruiter-company").innerText =
+            user.company || user.companyname || "—";
+
+    } catch (error) {
+        console.error(error);
     }
-    document.addEventListener("DOMContentLoaded", loadData);
+}
+
+document.addEventListener("DOMContentLoaded", loadData);
 </script>
 
 
+
 </html>
+
