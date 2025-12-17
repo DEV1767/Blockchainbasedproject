@@ -235,24 +235,7 @@
         }
     </style>
 </head>
-<script>
-(async function () {
-    const res = await fetch(
-        "https://backend-eduproof.vercel.app/api/auth/me",
-        { credentials: "include" }
-    );
 
-    if (res.status !== 200) {
-        window.location.href = "index.html";
-        return;
-    }
-
-    const data = await res.json();
-    if (data.user.role !== "institute") {
-        window.location.href = "index.html";
-    }
-})();
-</script>
 
 <body>
 
