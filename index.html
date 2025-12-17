@@ -113,33 +113,7 @@
         }
     </style>
 </head>
-<script>
-(async function () {
-    try {
-        const res = await fetch(
-            "https://backend-eduproof.vercel.app/api/auth/me",
-            { credentials: "include" }
-        );
 
-        if (res.status !== 200) return;
-
-        const data = await res.json();
-        const role = data.user.role;
-
-        if (role === "student") {
-            window.location.href = "/student/index.html";
-        }
-        else if (role === "hr") {
-            window.location.href = "/recurator/rec.index.html";
-        }
-        else if (role === "institute") {
-            window.location.href = "/Instution/insti.dashboard.html";
-        }
-    } catch (err) {
-        console.log("Not logged in");
-    }
-})();
-</script>
 
 
 <body>
@@ -354,6 +328,7 @@
 
 
 </html>
+
 
 
 
