@@ -369,15 +369,14 @@
             document.getElementById("recruiter-role").innerText =
                 user.role?.toUpperCase() || "Recruiter";
 
-            document.getElementById("account-type").innerText =
-                user.isVerified ? "Verified Recruiter" : "Unverified Recruiter";
+
 
             document.getElementById("studentId").innerText =
                 user.hrId || user.employeeId || "HR-0000";
 
             // Designation text
             document.getElementById("recruiter-designation").innerText =
-                `${user.designation || "Recruiter"} • ${user.company || "Organization"}`;
+                `${user.role || "Recruiter"} • ${user.companyname || "Organization"}`;
 
             // Joined date
             if (user.createdAt) {
