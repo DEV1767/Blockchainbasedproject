@@ -260,12 +260,12 @@
 
             <!-- PROFILE HEADER -->
             <div class="profile-header" id="profile-header">
-                <div class="avatar" id="profile-avatar">R</div>
+                <div class="avatar" id="profile-avatar"></div>
 
                 <div class="profile-info">
-                    <h2 id="recruiter-name">Rahul Sharma</h2>
+                    <h2 id="recruiter-name"></h2>
                     <p id="recruiter-designation">
-                        Senior Recruiter • ABC Technologies
+
                     </p>
                 </div>
             </div>
@@ -275,13 +275,13 @@
 
                 <div class="detail-box">
                     <label>Email</label>
-                    <div id="recruiter-email">rahul@abctech.com</div>
+                    <div id="recruiter-email"></div>
                 </div>
 
                 <div class="detail-box">
                     <label>Company / Organization</label>
                     <div id="recruiter-company">
-                        ABC Technologies Pvt Ltd
+
                     </div>
                 </div>
 
@@ -302,8 +302,12 @@
                 <div class="detail-box">
                     <label>Joined On</label>
                     <div id="joined-date">
-                        15 March 2025
+
                     </div>
+                </div>
+                <div class="detail-box">
+                    <label>HR ID</label>
+                    <div id="studentId">HR-0000</div>
                 </div>
 
 
@@ -331,44 +335,75 @@
 </body>
 <script src="/student/studentdashboard.js"></script>
 <script>
-const Url = "https://backend-eduproof.vercel.app";
+    const Url = "https://backend-eduproof.vercel.app";
 
-async function loadData() {
-    try {
-        const response = await fetch(`${Url}/api/auth/me`, {
-            method: "GET",
-            credentials: "include"
-        });
+    async function loadData() {
+        try {
+            const response = await fetch(`${Url}/api/auth/me`, {
+                method: "GET",
+                credentials: "include"
+            });
 
-        if (!response.ok) {
-            window.location.href = "login.html";
-            return;
+            if (!response.ok) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const { user } = await response.json();
+
+            // Avatar
+            document.getElementById("profile-avatar").innerText =
+                user.name?.charAt(0).toUpperCase() || "U";
+
+            // Basic info
+            document.getElementById("recruiter-name").innerText =
+                user.name || "—";
+
+            document.getElementById("recruiter-email").innerText =
+                user.email || "—";
+
+            document.getElementById("recruiter-company").innerText =
+                user.company || user.companyname || user.organization || "—";
+
+            // Extra profile info
+            document.getElementById("recruiter-role").innerText =
+                user.role?.toUpperCase() || "Recruiter";
+
+            document.getElementById("account-type").innerText =
+                user.isVerified ? "Verified Recruiter" : "Unverified Recruiter";
+
+            document.getElementById("studentId").innerText =
+                user.hrId || user.employeeId || "HR-0000";
+
+            // Designation text
+            document.getElementById("recruiter-designation").innerText =
+                `${user.designation || "Recruiter"} • ${user.company || "Organization"}`;
+
+            // Joined date
+            if (user.createdAt) {
+                const date = new Date(user.createdAt);
+                document.getElementById("joined-date").innerText =
+                    date.toDateString();
+            } else {
+                document.getElementById("joined-date").innerText = "—";
+            }
+
+        } catch (error) {
+            console.error("Profile load error:", error);
         }
-
-        const data = await response.json();
-        const user = data.user;
-
-        document.getElementById("profile-avatar").innerText =
-            user.name.charAt(0).toUpperCase();
-
-        document.getElementById("recruiter-name").innerText =
-            user.name;
-
-        document.getElementById("recruiter-email").innerText =
-            user.email;
-
-        document.getElementById("recruiter-company").innerText =
-            user.company || user.companyname || "—";
-
-    } catch (error) {
-        console.error(error);
     }
-}
 
-document.addEventListener("DOMContentLoaded", loadData);
+    // Logout
+    // document.getElementById("logout-btn")?.addEventListener("click", async () => {
+    //     await fetch(`${Url}/api/auth/logout`, {
+    //         method: "POST",
+    //         credentials: "include"
+    //     });
+    //     window.location.href = "login.html";
+    // });
+
+    document.addEventListener("DOMContentLoaded", loadData);
 </script>
 
 
-
 </html>
-
